@@ -51,15 +51,6 @@ public class ButtonAuto extends ImageButton {
                 }
             }
         }
-
-
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
-                System.out.print((gameField[i][j] ? 1 : 0) + " ");
-            }
-            System.out.println();
-        }
-        System.out.println("up");
     }
 
     private boolean isDrawChip(Rotation rotation, int height, int x, int y) {
