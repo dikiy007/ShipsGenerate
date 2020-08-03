@@ -8,9 +8,9 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.example.shipsgenerate.utils.Constants;
+import com.example.shipsgenerate.utils.Point;
 import com.example.shipsgenerate.utils.Rotation;
 
-import java.awt.Point;
 import java.util.Random;
 
 public class ButtonAuto extends ImageButton {
