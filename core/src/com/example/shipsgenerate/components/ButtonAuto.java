@@ -2,13 +2,12 @@ package com.example.shipsgenerate.components;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
+import com.example.shipsgenerate.utils.Constants;
 import com.example.shipsgenerate.utils.Rotation;
 
 import java.awt.Point;
@@ -17,13 +16,14 @@ import java.util.Random;
 public class ButtonAuto extends ImageButton {
     private boolean[][] gameField;
 
-    public ButtonAuto(final String imagePath, final Image field, final Stage stage) {
+    public ButtonAuto(final String imagePath) {
         super(new SpriteDrawable(new Sprite(new Texture(imagePath))));
         this.addListener(new InputListener(){
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
                 ButtonAuto.this.touchUp();
-                draw(field, stage);
+                setChecked(true);
+
             }
 
             @Override
@@ -163,27 +163,19 @@ public class ButtonAuto extends ImageButton {
                 || gameField[x][y - 1] || gameField[x - 1][y - 1];
     }
 
-    private void draw(Image field, Stage stage) {
-        int i = 0;
-        while (i != stage.getActors().size) {
-            Actor actor = stage.getActors().items[i];
-            if (actor.getName() != null && actor.getName().equals("ship")) {
-                stage.getActors().removeValue(actor, false);
-            } else {
-                i++;
-            }
-        }
-        float diffX = field.getHeight() / 10;
-        float diffY = field.getWidth() / 10;
+    public void draw(Texture field, SpriteBatch batch) {
+        float diffX = (float) field.getHeight() / 10f;
+        float diffY = (float) field.getWidth() / 10f;
 
 
-        for (i = 0; i < gameField.length; i++) {
+        for (int i = 0; i < gameField.length; i++) {
             for (int j = 0; j < gameField[i].length; j++) {
                 if (gameField[i][j]) {
-                    Actor ship = new Image(new Texture("oneShip.png"));
-                    ship.setName("ship");
-                    ship.setPosition(field.getX() + (diffX * i) - 2, field.getY() + (diffY * j));
-                    stage.addActor(ship);
+                    Texture ship = new Texture("oneShip.png");
+                    float x = Constants.FIELD_X + (diffX * i) - 2;
+                    float y = Constants.FIELD_Y + (diffY * j);
+
+                    batch.draw(ship, x, y);
                 }
             }
         }
